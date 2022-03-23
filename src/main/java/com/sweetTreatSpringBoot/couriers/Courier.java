@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Courier {
+    private int id;
     private String name;
     private double maxDeliveryMiles;
     private LocalTime startHour;
@@ -13,7 +14,8 @@ public class Courier {
     private boolean hasRefrigeratedBox;
     private double chargePerMile;
 
-    public Courier(String name, double maxDeliveryMiles, boolean hasRefrigeratedBox, double chargePerMile, String startHouInNumber, String endHourInNumber) {
+    public Courier(int id, String name, double maxDeliveryMiles, boolean hasRefrigeratedBox, double chargePerMile, String startHouInNumber, String endHourInNumber) {
+        this.id = id;
         this.name = name;
         this.maxDeliveryMiles = maxDeliveryMiles;
         this.hasRefrigeratedBox = hasRefrigeratedBox;
@@ -21,6 +23,8 @@ public class Courier {
         this.startHour = LocalTime.parse(startHouInNumber, DateTimeFormatter.ISO_LOCAL_TIME);
         this.endHour = LocalTime.parse(endHourInNumber, DateTimeFormatter.ISO_LOCAL_TIME);;
     }
+
+    public int getId() {return id;}
 
     public String getName() {
         return name;
