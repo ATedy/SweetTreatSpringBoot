@@ -10,20 +10,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/couriers")
+@RequestMapping("/sweetTreats")
 public class CourierController {
 
     @Autowired
     private CourierService courierService;
 
 
-    @PostMapping(path = "/add")
+    @PostMapping(path = "couriers/add")
     public void addCourier(@RequestBody Courier courier){
         courierService.addCourier(courier);
     }
 
-
     @GetMapping("/")
+    public String homePage()
+    {
+        return "Welcome To Our SHop";
+    }
+
+    @GetMapping("/couriers")
     public List<Courier>getAllCouriers()
     {
         List<Courier> couriers = courierService.getAll();
@@ -31,12 +36,12 @@ public class CourierController {
         return couriers;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/couriers/{id}")
     public Courier getOneCourier(@PathVariable("id") String id){
         return courierService.getOneCourier(id);
     }
 
-    @GetMapping("/cheapest")
+    @GetMapping("/couriers/cheapest")
     public Courier cheapestCourier(@RequestBody Order order){
         return  courierService.cheapestCourierSelector(order);
     }
