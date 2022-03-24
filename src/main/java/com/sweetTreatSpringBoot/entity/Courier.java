@@ -1,4 +1,4 @@
-package com.sweetTreatSpringBoot.couriers;
+package com.sweetTreatSpringBoot.entity;
 
 import org.hibernate.annotations.Generated;
 
@@ -6,15 +6,18 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Courier {
-    private int id;
-    private String name;
+    private  String id;
+    private  String name;
     private double maxDeliveryMiles;
     private LocalTime startHour;
     private LocalTime endHour;
     private boolean hasRefrigeratedBox;
     private double chargePerMile;
 
-    public Courier(int id, String name, double maxDeliveryMiles, boolean hasRefrigeratedBox, double chargePerMile, String startHouInNumber, String endHourInNumber) {
+    public Courier() {
+    }
+
+    public Courier(String id, String name, double maxDeliveryMiles, boolean hasRefrigeratedBox, double chargePerMile, String startHouInNumber, String endHourInNumber) {
         this.id = id;
         this.name = name;
         this.maxDeliveryMiles = maxDeliveryMiles;
@@ -24,7 +27,7 @@ public class Courier {
         this.endHour = LocalTime.parse(endHourInNumber, DateTimeFormatter.ISO_LOCAL_TIME);;
     }
 
-    public int getId() {return id;}
+    public String getId() {return id;}
 
     public String getName() {
         return name;
@@ -50,6 +53,36 @@ public class Courier {
     public LocalTime getEndHour() {
         return endHour;
     }
+
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMaxDeliveryMiles(double maxDeliveryMiles) {
+        this.maxDeliveryMiles = maxDeliveryMiles;
+    }
+
+    public void setStartHour(LocalTime startHour) {
+        this.startHour = startHour;
+    }
+
+    public void setEndHour(LocalTime endHour) {
+        this.endHour = endHour;
+    }
+
+    public void setHasRefrigeratedBox(boolean hasRefrigeratedBox) {
+        this.hasRefrigeratedBox = hasRefrigeratedBox;
+    }
+
+    public void setChargePerMile(double chargePerMile) {
+        this.chargePerMile = chargePerMile;
+    }
+
 
 
     @Override
