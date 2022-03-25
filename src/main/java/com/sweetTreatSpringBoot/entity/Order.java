@@ -39,7 +39,7 @@ public class Order {
     }
 
     public void setRefrigerated(boolean refrigerated) {
-        IsRefrigerated = refrigerated;
+        this.IsRefrigerated = refrigerated;
     }
 }
 
