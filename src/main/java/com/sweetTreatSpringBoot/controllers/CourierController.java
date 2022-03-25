@@ -17,17 +17,19 @@ public class CourierController {
     private CourierService courierService;
 
 
-    @PostMapping(path = "couriers/add")
+    @PostMapping(path = "couriers/newCourier")
     public void addCourier(@RequestBody Courier courier){
         courierService.addCourier(courier);
     }
 
+    // home route
     @GetMapping("/")
     public String homePage()
     {
         return "Welcome To Our SHop";
     }
 
+    // all couriers route
     @GetMapping("/couriers")
     public List<Courier>getAllCouriers()
     {
@@ -36,20 +38,23 @@ public class CourierController {
         return couriers;
     }
 
+    // single courier route
     @GetMapping("/couriers/{id}")
     public Courier getOneCourier(@PathVariable("id") String id){
         return courierService.getOneCourier(id);
     }
 
+    // cheapest route
     @GetMapping("/couriers/cheapest")
     public Courier cheapestCourier(@RequestBody Order order){
         return  courierService.cheapestCourierSelector(order);
     }
 
-    @GetMapping("/availableCourier")
-    public Courier availableCourier(@RequestBody Order order){
-        return  courierService.availableCourier(order);
-    }
+    // available route
+//    @GetMapping("/availableCourier")
+//    public Courier availableCourier(@RequestBody Order order){
+//        return  courierService.availableCourier(order);
+//    }
 
 
 }

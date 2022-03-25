@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 public class CourierService{
     private static List<Courier> couriers =  new ArrayList<>();
     static {
-        couriers.add(new Courier("1", "Bobby", 5.00, "09:00", "13:00", true, 1.75));
+        couriers.add(new Courier("1", "Bobby", 5, "09:00", "13:00", true, 1.75));
         couriers.add( new Courier("2","Martin", 3, "09:00", "17:00", false , 1.5));
-        couriers.add( new Courier("3","Geoff",6, "10:00", "17:00", true , 2.00));
+        couriers.add( new Courier("3","Geoff",5, "10:00", "17:00", true , 2.00));
     }
 
     public List<Courier> getAll() {
@@ -40,9 +40,8 @@ public class CourierService{
                 .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
                         order.getOrderHour().isBefore(courier.getEndHour()))
                 .filter(c -> c.getMaxDeliveryMiles() >= order.getCustomerDistance())
-                .filter(c1 -> c1.isHasRefrigeratedBox() == order.isRefrigerated())
+                .filter(c1 -> c1.hasRefrigeratedBox() == order.isRefrigerated())
                 .collect(Collectors.toList());
-
 
         if(!availableCourier.isEmpty()){
             Comparator<Courier> comparator = Comparator.comparing(courier -> courier.getChargePerMile() );
@@ -57,15 +56,4 @@ public class CourierService{
 
     }
 
-    public  Courier availableCourier(Order order){
-        List<Courier> availableCourier = couriers.stream()
-                .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
-                        order.getOrderHour().isBefore(courier.getEndHour()))
-                .filter(c -> c.getMaxDeliveryMiles() >= order.getCustomerDistance())
-                .filter(c1 -> c1.isHasRefrigeratedBox() == order.isRefrigerated())
-                .collect(Collectors.toList());
-
-        return availableCourier.size() >= 0 ? (Courier) availableCourier : null;
-
-    }
 }

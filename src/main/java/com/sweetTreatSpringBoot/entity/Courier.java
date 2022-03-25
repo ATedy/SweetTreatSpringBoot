@@ -65,7 +65,7 @@ public class Courier {
         this.endHour = endHour;
     }
 
-    public boolean isHasRefrigeratedBox() {
+    public boolean hasRefrigeratedBox() {
         return hasRefrigeratedBox;
     }
 
