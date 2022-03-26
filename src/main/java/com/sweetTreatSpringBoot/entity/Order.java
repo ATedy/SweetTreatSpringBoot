@@ -9,13 +9,13 @@ public class Order {
     private double customerDistance;
     private boolean IsRefrigerated;
 
-    public Order() {
-    }
+//    public Order() {
+//    }
 
     public Order(String orderHour, double customerDistance, boolean isRefrigerated) {
         this.orderHour = LocalTime.parse(orderHour, DateTimeFormatter.ISO_LOCAL_TIME);
         this.customerDistance = customerDistance;
-        IsRefrigerated = isRefrigerated;
+        this.IsRefrigerated = isRefrigerated;
     }
 
     public LocalTime getOrderHour() {
