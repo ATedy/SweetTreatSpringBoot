@@ -1,42 +1,36 @@
 package com.sweetTreatSpringBoot.services;
 
+import com.sweetTreatSpringBoot.Repository.Repository;
 import com.sweetTreatSpringBoot.entity.Courier;
 import com.sweetTreatSpringBoot.entity.Order;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CourierService{
-    private static List<Courier> couriers =  new ArrayList<>();
-    static {
-        couriers.add(new Courier("1", "Bobby", 5, "09:00", "13:00", true, 1.75));
-        couriers.add( new Courier("2","Martin", 3, "09:00", "17:00", false , 1.5));
-        couriers.add( new Courier("3","Geoff",5, "10:00", "17:00", true , 2.00));
-    }
 
     public List<Courier> getAll() {
-        return couriers;
+        return Repository.allCouriers();
     }
 
     public Courier getOneCourier(String id){
-        return couriers.stream()
+        return Repository.allCouriers().stream()
                 .filter(courier -> courier.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void addCourier(Courier courier) {
-        couriers.add(courier);
+    public Courier addCourier(Courier courier) {
+
+        Repository.allCouriers().add(courier);
+        System.out.println(courier);
+        return courier;
     }
 
     public  Courier cheapestCourierSelector(Order order){
-        List<Courier> availableCourier = couriers.stream()
+        List<Courier> availableCourier = Repository.allCouriers().stream()
                 .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
                         order.getOrderHour().isBefore(courier.getEndHour()))
                 .filter(c -> c.getMaxDeliveryMiles() >= order.getCustomerDistance())

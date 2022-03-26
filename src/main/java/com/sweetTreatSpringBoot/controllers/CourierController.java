@@ -17,7 +17,7 @@ public class CourierController {
     private CourierService courierService;
 
 
-    @PostMapping(path = "couriers/newCourier")
+    @PostMapping(path = "/couriers/newCourier")
     public void addCourier(@RequestBody Courier courier){
         courierService.addCourier(courier);
     }
@@ -49,12 +49,6 @@ public class CourierController {
     public Courier cheapestCourier(@RequestBody Order order){
         return  courierService.cheapestCourierSelector(order);
     }
-
-    // available route
-//    @GetMapping("/availableCourier")
-//    public Courier availableCourier(@RequestBody Order order){
-//        return  courierService.availableCourier(order);
-//    }
 
 
 }

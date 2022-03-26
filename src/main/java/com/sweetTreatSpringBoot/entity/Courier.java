@@ -83,6 +83,7 @@ public class Courier {
 
     @Override
     public String toString() {
-        return "Name: " + this.name + "\n" + "Miles: "+ this.maxDeliveryMiles + "\n" + "Charge per Mile: "+ this.chargePerMile;
+        return "Name: " + this.name + "\n" + "Miles: "+ this.maxDeliveryMiles + "\n" + "Charge per Mile: "+ this.chargePerMile
+                + "\n" + this.hasRefrigeratedBox;
     }
 }
