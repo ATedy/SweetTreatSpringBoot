@@ -34,7 +34,7 @@ public class CourierService{
                 .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
                         order.getOrderHour().isBefore(courier.getEndHour()))
                 .filter(c -> c.getMaxDeliveryMiles() >= order.getCustomerDistance())
-                .filter(c1 -> c1.hasRefrigeratedBox() == order.isRefrigerated())
+                .filter(c1 -> c1.isHasRefrigeratedBox() == order.isIsRefrigerated())
                 .collect(Collectors.toList());
 
         if(!availableCourier.isEmpty()){
