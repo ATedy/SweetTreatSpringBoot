@@ -5,6 +5,7 @@ import com.sweetTreatSpringBoot.entity.Courier;
 import com.sweetTreatSpringBoot.entity.Order;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,8 +14,17 @@ import java.util.stream.Collectors;
 @Service
 public class CourierService{
 
+     public static List<Courier> allCouriers(){
+        List<Courier>  couriers =  new ArrayList<>();
+        couriers.add(new Courier("1", "Bobby", 5, LocalTime.parse("09:00"),  LocalTime.parse("13:00"), true, 1.75));
+        couriers.add( new Courier("2","Martin", 3,  LocalTime.parse("09:00"),  LocalTime.parse("17:00"), false , 1.5));
+        couriers.add( new Courier("3","Geoff",5,  LocalTime.parse("10:00"),  LocalTime.parse("17:00"), true , 2.00));
+    return couriers;
+     }
+
+
     public List<Courier> getAll() {
-        return Repository.allCouriers();
+        return allCouriers();
     }
 
     public Courier getOneCourier(String id){

@@ -2,6 +2,7 @@ package com.sweetTreatSpringBoot.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalTime;
 
@@ -9,6 +10,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Courier {
     private  String id;
     private  String name;
