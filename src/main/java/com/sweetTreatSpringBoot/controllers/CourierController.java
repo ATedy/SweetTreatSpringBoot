@@ -26,7 +26,7 @@ public class CourierController {
     @GetMapping("/")
     public String homePage()
     {
-        return "Welcome To Our SHop";
+        return "Welcome To Our Shop";
     }
 
     // all couriers route

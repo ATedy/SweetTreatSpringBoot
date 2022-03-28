@@ -2,17 +2,13 @@ package com.sweetTreatSpringBoot.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Generated;
-
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class Courier {
     private  String id;
     private  String name;
