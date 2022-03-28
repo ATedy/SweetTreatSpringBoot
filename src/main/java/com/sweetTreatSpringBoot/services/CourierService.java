@@ -13,22 +13,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class CourierService{
-
-     public static List<Courier> allCouriers(){
-        List<Courier>  couriers =  new ArrayList<>();
+     private static List<Courier>  couriers =  new ArrayList<>();
+  static{
         couriers.add(new Courier("1", "Bobby", 5, LocalTime.parse("09:00"),  LocalTime.parse("13:00"), true, 1.75));
         couriers.add( new Courier("2","Martin", 3,  LocalTime.parse("09:00"),  LocalTime.parse("17:00"), false , 1.5));
         couriers.add( new Courier("3","Geoff",5,  LocalTime.parse("10:00"),  LocalTime.parse("17:00"), true , 2.00));
-    return couriers;
      }
 
-
     public List<Courier> getAll() {
-        return allCouriers();
+        return couriers;
     }
 
     public Courier getOneCourier(String id){
-        return Repository.allCouriers().stream()
+        return couriers.stream()
                 .filter(courier -> courier.getId().equals(id))
                 .findFirst()
                 .orElse(null);
@@ -36,13 +33,13 @@ public class CourierService{
 
     public Courier addCourier(Courier courier) {
 
-        Repository.allCouriers().add(courier);
+        couriers.add(courier);
         System.out.println(Repository.allCouriers().size() + "and " + courier);
         return courier;
     }
 
     public  Courier cheapestCourierSelector(Order order){
-        List<Courier> availableCourier = Repository.allCouriers().stream()
+        List<Courier> availableCourier = couriers.stream()
                 .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
                         order.getOrderHour().isBefore(courier.getEndHour()))
                 .filter(c -> c.getMaxDeliveryMiles() >= order.getCustomerDistance())
