@@ -3,6 +3,7 @@ import com.sweetTreatSpringBoot.entity.Courier;
 import com.sweetTreatSpringBoot.entity.Order;
 import com.sweetTreatSpringBoot.exceptionHandling.CourierErrorResponse;
 import com.sweetTreatSpringBoot.exceptionHandling.CourierNotFoundException;
+import com.sweetTreatSpringBoot.exceptionHandling.ResponseData;
 import com.sweetTreatSpringBoot.services.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,9 +55,14 @@ public class CourierController {
 
     // cheapest route
     @GetMapping("/couriers/cheapest")
-    public Courier cheapestCourier(@RequestBody Order order){
-        return  courierService.cheapestCourierSelector(order);
+    public ResponseEntity<Courier> cheapestCourier(@RequestBody Order order){
+        if(courierService.cheapestCourierSelector(order) != null){
+           return  new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
 
     // exception handler method for courier
