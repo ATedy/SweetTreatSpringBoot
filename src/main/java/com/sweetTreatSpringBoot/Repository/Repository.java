@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repository {
+
    @Getter static List<Courier>  couriers =  new ArrayList<>();
     static{
         couriers.add(new Courier("1", "Bobby", 5, LocalTime.parse("09:00"),  LocalTime.parse("13:00"), true, 1.75));
