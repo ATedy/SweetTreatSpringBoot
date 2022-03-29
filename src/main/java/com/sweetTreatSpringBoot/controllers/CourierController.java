@@ -1,9 +1,7 @@
 package com.sweetTreatSpringBoot.controllers;
-
 import com.sweetTreatSpringBoot.entity.Courier;
 import com.sweetTreatSpringBoot.entity.Order;
 import com.sweetTreatSpringBoot.services.CourierService;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
