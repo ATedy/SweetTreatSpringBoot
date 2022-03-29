@@ -58,6 +58,8 @@ public class CourierController {
         return  courierService.cheapestCourierSelector(order);
     }
 
+
+    // exception handler method for courier
     @ExceptionHandler
     public ResponseEntity<CourierErrorResponse> handleException(CourierNotFoundException exc){
         CourierErrorResponse error = new CourierErrorResponse();
