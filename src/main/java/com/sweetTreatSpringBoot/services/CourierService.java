@@ -41,10 +41,8 @@ public class CourierService{
 
             return  cheapestCourier;
 
-        }else{
-            System.out.println("not found");
-            return null;
         }
+            return null;
 
     }
 

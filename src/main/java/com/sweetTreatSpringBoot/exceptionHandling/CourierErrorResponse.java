@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,5 +14,5 @@ import lombok.Setter;
 public class CourierErrorResponse {
     private int status;
     private String message;
-    private long timeStamp;
+    private LocalTime timeStamp;
 }

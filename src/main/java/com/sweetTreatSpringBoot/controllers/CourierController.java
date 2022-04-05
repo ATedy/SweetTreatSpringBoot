@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -45,7 +46,7 @@ public class CourierController {
     public Courier getOneCourier(@PathVariable("id") String id){
 
         //  checks id against courier list size
-        if((Integer.parseInt(id) >= courierService.getAll().size()) || Integer.parseInt(id) < 0){
+        if((Integer.parseInt(id) > courierService.getAll().size()) || Integer.parseInt(id) < 0){
             throw new CourierNotFoundException("Courier with id " + id + " not found. " +
                     "Please enter numbers between 0 and " + courierService.getAll().size());
         }
@@ -54,9 +55,14 @@ public class CourierController {
 
     // cheapest route
     @GetMapping("/couriers/cheapest")
-    public Courier cheapestCourier(@RequestBody Order order){
-        return  courierService.cheapestCourierSelector(order);
+    public ResponseEntity<Courier> cheapestCourier(@RequestBody Order order){
+        if(courierService.cheapestCourierSelector(order) != null){
+           return  new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
 
     // exception handler method for courier
@@ -66,7 +72,7 @@ public class CourierController {
 
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
+        error.setTimeStamp(LocalTime.now());
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
