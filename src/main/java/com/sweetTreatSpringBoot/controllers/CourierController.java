@@ -3,7 +3,6 @@ import com.sweetTreatSpringBoot.entity.Courier;
 import com.sweetTreatSpringBoot.entity.Order;
 import com.sweetTreatSpringBoot.exceptionHandling.CourierErrorResponse;
 import com.sweetTreatSpringBoot.exceptionHandling.CourierNotFoundException;
-import com.sweetTreatSpringBoot.exceptionHandling.ResponseData;
 import com.sweetTreatSpringBoot.services.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,9 +45,9 @@ public class CourierController {
     public Courier getOneCourier(@PathVariable("id") String id){
 
         //  checks id against courier list size
-        if((Integer.parseInt(id) >= courierService.getAll().size()) || Integer.parseInt(id) < 0){
+        if((Integer.parseInt(id) >= courierService.getAll().size()) || Integer.parseInt(id) < 1){
             throw new CourierNotFoundException("Courier with id " + id + " not found. " +
-                    "Please enter numbers between 0 and " + courierService.getAll().size());
+                    "Please enter numbers between 1 and " + courierService.getAll().size());
         }
         return courierService.getOneCourier(id);
     }
@@ -56,12 +55,19 @@ public class CourierController {
     // cheapest route
     @GetMapping("/couriers/cheapest")
     public ResponseEntity<Courier> cheapestCourier(@RequestBody Order order){
+
         if(courierService.cheapestCourierSelector(order) != null){
            return  new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
 
         }
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+
+
+
+
 
 
 
