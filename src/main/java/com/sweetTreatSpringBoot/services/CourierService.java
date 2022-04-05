@@ -1,7 +1,6 @@
 package com.sweetTreatSpringBoot.services;
 
 import com.sweetTreatSpringBoot.Repository.CourierRepository;
-import com.sweetTreatSpringBoot.Repository.Repository;
 import com.sweetTreatSpringBoot.entity.Courier;
 import com.sweetTreatSpringBoot.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,24 +39,24 @@ public class CourierService{
     }
 
 
-//
-//    public  Courier cheapestCourierSelector(Order order){
-//        List<Courier> availableCourier = Repository.getCouriers().stream()
-//                .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
-//                        order.getOrderHour().isBefore(courier.getEndHour()))
-//                .filter(c -> c.getMaxDeliveryMiles() >= order.getCustomerDistance())
-//                .filter(c1 -> c1.isHasRefrigeratedBox() == order.isIsRefrigerated())
-//                .collect(Collectors.toList());
-//
-//        if(!availableCourier.isEmpty()){
-//            Comparator<Courier> comparator = Comparator.comparing(courier -> courier.getChargePerMile() );
-//            Courier cheapestCourier = availableCourier.stream().min(comparator).get();
-//
-//            return  cheapestCourier;
-//
-//        }
-//            return null;
-//
-//    }
+
+    public  Courier cheapestCourierSelector(Order order){
+        List<Courier> availableCourier = courierRepository.findAll().stream()
+                .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
+                        order.getOrderHour().isBefore(courier.getEndHour()))
+                .filter(c -> c.getMaxDeliveryMiles() >= order.getCustomerDistance())
+                .filter(c1 -> c1.isHasRefrigeratedBox() == order.isIsRefrigerated())
+                .collect(Collectors.toList());
+
+        if(!availableCourier.isEmpty()){
+            Comparator<Courier> comparator = Comparator.comparing(courier -> courier.getChargePerMile() );
+            Courier cheapestCourier = availableCourier.stream().min(comparator).get();
+
+            return  cheapestCourier;
+
+        }
+            return null;
+
+    }
 
 }
