@@ -21,8 +21,9 @@ public class CourierController {
 
     // new Courier route
     @PostMapping(path = "/couriers/newCourier")
-    public void addCourier(@RequestBody Courier courier){
+    public ResponseEntity<?> addCourier(@RequestBody Courier courier){
         courierService.addCourier(courier);
+        return new ResponseEntity<>("New Courier Added",HttpStatus.OK);
     }
 
     // home route
@@ -50,7 +51,7 @@ public class CourierController {
     }
     // deleting a courier route
     @DeleteMapping("/couriers/{id}")
-    public ResponseEntity<HttpStatus> deleteCourier(@PathVariable("id") String id){
+    public ResponseEntity<?> deleteCourier(@PathVariable("id") String id){
         return courierService.deleteCourier(id);
 
     }

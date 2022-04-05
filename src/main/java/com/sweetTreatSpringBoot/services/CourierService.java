@@ -39,12 +39,12 @@ public class CourierService{
     }
 
 
-    public ResponseEntity<HttpStatus> deleteCourier(String id) {
+    public ResponseEntity<?> deleteCourier(String id) {
         try {
             courierRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Courier deleted Successfully", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("No Courier deleted",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
