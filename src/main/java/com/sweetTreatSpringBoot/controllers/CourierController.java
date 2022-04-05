@@ -52,7 +52,12 @@ public class CourierController {
     // deleting a courier route
     @DeleteMapping("/couriers/{id}")
     public ResponseEntity<?> deleteCourier(@PathVariable("id") String id){
-        return courierService.deleteCourier(id);
+        try {
+            courierService.deleteCourier(id);
+            return new ResponseEntity<>("Courier deleted Successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("No Courier deleted",HttpStatus.NOT_FOUND);
+        }
 
     }
     // cheapest courier route
