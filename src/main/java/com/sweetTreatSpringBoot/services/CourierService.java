@@ -39,6 +39,16 @@ public class CourierService{
     }
 
 
+    public ResponseEntity<HttpStatus> deleteCourier(String id) {
+        try {
+            courierRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
     public  Courier cheapestCourierSelector(Order order){
         List<Courier> availableCourier = courierRepository.findAll().stream()
@@ -58,5 +68,10 @@ public class CourierService{
             return null;
 
     }
+
+
+
+
+
 
 }
