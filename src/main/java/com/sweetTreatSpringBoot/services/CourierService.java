@@ -4,6 +4,7 @@ import com.sweetTreatSpringBoot.Repository.CourierRepository;
 import com.sweetTreatSpringBoot.Repository.Repository;
 import com.sweetTreatSpringBoot.entity.Courier;
 import com.sweetTreatSpringBoot.entity.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CourierService{
+    @Autowired
     CourierRepository courierRepository;
 
     public List<Courier> getAll() {
@@ -33,15 +35,8 @@ public class CourierService{
     }
 
 
-    public ResponseEntity<Courier> addCourier(Courier courier) {
-
-        try {
-            Courier _courier = courierRepository.save(new Courier(courier.getName(), courier.getMaxDeliveryMiles(), courier.getStartHour(),
-                    courier.getEndHour(), courier.isHasRefrigeratedBox(), courier.getChargePerMile()));
-            return new ResponseEntity<>(courier, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void addCourier(Courier courier) {
+        courierRepository.insert(courier);
     }
 
 
