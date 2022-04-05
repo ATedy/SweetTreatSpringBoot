@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalTime;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/sweetTreats")
 public class CourierController {
 
     @Autowired
     private CourierService courierService;
-
 
     @PostMapping(path = "/couriers/newCourier")
     public void addCourier(@RequestBody Courier courier){
@@ -34,7 +34,7 @@ public class CourierController {
 
     // all couriers route
     @GetMapping("/couriers")
-    public List<Courier>getAllCouriers()
+    public List<Courier> getAllCouriers()
     {
         List<Courier> couriers = courierService.getAll();
 
@@ -42,39 +42,39 @@ public class CourierController {
     }
 
     // single courier route
-    @GetMapping("/couriers/{id}")
-    public Courier getOneCourier(@PathVariable("id") String id){
+//    @GetMapping("/couriers/{id}")
+//    public Courier getOneCourier(@PathVariable("id") String id){
+//
+//        //  checks id against courier list size
+//        if((Integer.parseInt(id) > courierService.getAll().size()) || Integer.parseInt(id) < 0){
+//            throw new CourierNotFoundException("Courier with id " + id + " not found. " +
+//                    "Please enter numbers between 0 and " + courierService.getAll().size());
+//        }
+//        return courierService.getOneCourier(id);
+//    }
 
-        //  checks id against courier list size
-        if((Integer.parseInt(id) > courierService.getAll().size()) || Integer.parseInt(id) < 0){
-            throw new CourierNotFoundException("Courier with id " + id + " not found. " +
-                    "Please enter numbers between 0 and " + courierService.getAll().size());
-        }
-        return courierService.getOneCourier(id);
-    }
-
-    // cheapest route
-    @GetMapping("/couriers/cheapest")
-    public ResponseEntity<Courier> cheapestCourier(@RequestBody Order order){
-        if(courierService.cheapestCourierSelector(order) != null){
-           return  new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
-
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-
-
-    // exception handler method for courier
-    @ExceptionHandler
-    public ResponseEntity<CourierErrorResponse> handleException(CourierNotFoundException exc){
-        CourierErrorResponse error = new CourierErrorResponse();
-
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(LocalTime.now());
-
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
+//    // cheapest route
+//    @GetMapping("/couriers/cheapest")
+//    public ResponseEntity<Courier> cheapestCourier(@RequestBody Order order){
+//        if(courierService.cheapestCourierSelector(order) != null){
+//           return  new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
+//
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
+//
+//
+//
+//    // exception handler method for courier
+//    @ExceptionHandler
+//    public ResponseEntity<CourierErrorResponse> handleException(CourierNotFoundException exc){
+//        CourierErrorResponse error = new CourierErrorResponse();
+//
+//        error.setStatus(HttpStatus.NOT_FOUND.value());
+//        error.setMessage(exc.getMessage());
+//        error.setTimeStamp(LocalTime.now());
+//
+//        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+//    }
 
 }
