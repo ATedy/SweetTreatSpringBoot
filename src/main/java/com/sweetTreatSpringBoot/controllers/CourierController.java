@@ -49,20 +49,18 @@ public class CourierController {
     }
 
     // deleting a courier route
-
     @DeleteMapping("/couriers/{id}")
     public ResponseEntity<HttpStatus> deleteCourier(@PathVariable("id") String id){
         return courierService.deleteCourier(id);
 
     }
-
     // cheapest courier route
     @GetMapping("/couriers/cheapest")
-    public ResponseEntity<Courier> cheapestCourier(@RequestBody Order order){
+    public ResponseEntity<?> cheapestCourier(@RequestBody Order order){
         if(courierService.cheapestCourierSelector(order) != null){
            return  new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("No courier available at this time",HttpStatus.NOT_FOUND);
     }
 
 
