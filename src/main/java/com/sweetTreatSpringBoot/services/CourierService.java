@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CourierService{
+public class CourierService {
     @Autowired
     CourierRepository courierRepository;
 
@@ -33,19 +33,16 @@ public class CourierService{
 
     }
 
-
     public void addCourier(Courier courier) {
         courierRepository.insert(courier);
     }
 
 
     public void deleteCourier(String id) {
-            courierRepository.deleteById(id);
+        courierRepository.deleteById(id);
     }
 
-
-
-    public  Courier cheapestCourierSelector(Order order){
+    public Courier cheapestCourierSelector(Order order) {
         List<Courier> availableCourier = courierRepository.findAll().stream()
                 .filter(courier -> order.getOrderHour().isAfter(courier.getStartHour()) &&
                         order.getOrderHour().isBefore(courier.getEndHour()))
@@ -53,20 +50,16 @@ public class CourierService{
                 .filter(c1 -> c1.isHasRefrigeratedBox() == order.isIsRefrigerated())
                 .collect(Collectors.toList());
 
-        if(!availableCourier.isEmpty()){
-            Comparator<Courier> comparator = Comparator.comparing(courier -> courier.getChargePerMile() );
+        if (!availableCourier.isEmpty()) {
+            Comparator<Courier> comparator = Comparator.comparing(courier -> courier.getChargePerMile());
             Courier cheapestCourier = availableCourier.stream().min(comparator).get();
 
-            return  cheapestCourier;
+            return cheapestCourier;
 
         }
-            return null;
+        return null;
 
     }
-
-
-
-
 
 
 }
