@@ -43,11 +43,11 @@ public class CourierController {
 
 //     single courier route
     @GetMapping("/couriers/{id}")
-    public ResponseEntity<Courier> getOneCourier(@PathVariable("id") String id){
+    public ResponseEntity<?> getOneCourier(@PathVariable("id") String id) {
+
         return courierService.getOneCourier(id);
 
     }
-
     // deleting a courier route
     @DeleteMapping("/couriers/{id}")
     public ResponseEntity<HttpStatus> deleteCourier(@PathVariable("id") String id){

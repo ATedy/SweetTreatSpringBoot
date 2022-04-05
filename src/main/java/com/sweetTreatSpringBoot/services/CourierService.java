@@ -23,12 +23,12 @@ public class CourierService{
         return courierRepository.findAll();
     }
 
-    public ResponseEntity<Courier> getOneCourier(@PathVariable("id") String id) {
+    public ResponseEntity<?> getOneCourier(@PathVariable("id") String id) {
         Optional<Courier> courierData = courierRepository.findById(id);
         if (courierData.isPresent()) {
             return new ResponseEntity<>(courierData.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Courier with that Id not found", HttpStatus.NOT_FOUND);
         }
 
     }
