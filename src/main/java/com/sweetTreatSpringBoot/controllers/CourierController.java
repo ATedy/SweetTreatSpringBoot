@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalTime;
 import java.util.List;
 
@@ -51,12 +52,9 @@ public class CourierController {
 
     // Update Route
     @PutMapping("/couriers/{id}")
-    public ResponseEntity<Courier> updateCourier(@PathVariable("id") String id, @RequestBody Courier courier){
+    public ResponseEntity<Courier> updateCourier(@PathVariable("id") String id, @RequestBody Courier courier) {
         return courierService.updateCourier(id, courier);
     }
-
-
-
 
 
     // deleting a courier route

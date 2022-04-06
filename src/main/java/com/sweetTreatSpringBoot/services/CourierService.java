@@ -40,6 +40,24 @@ public class CourierService {
     }
 
 
+    public ResponseEntity<Courier> updateCourier(String id, Courier courier) {
+        Optional<Courier> courierData = courierRepository.findById(id);
+        if (courierData.isPresent()) {
+            Courier selectedCourier = courierData.get();
+            selectedCourier.setName(courier.getName());
+            selectedCourier.setMaxDeliveryMiles(courier.getMaxDeliveryMiles());
+            selectedCourier.setStartHour(courier.getStartHour());
+            selectedCourier.setEndHour(courier.getEndHour());
+            selectedCourier.setHasRefrigeratedBox(courier.isHasRefrigeratedBox());
+            selectedCourier.setChargePerMile(courier.getChargePerMile());
+
+            return new ResponseEntity<>(courierRepository.save(selectedCourier), HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
     public void deleteCourier(String id) {
         courierRepository.deleteById(id);
 
@@ -66,20 +84,4 @@ public class CourierService {
     }
 
 
-    public ResponseEntity<Courier> updateCourier(@PathVariable("id") String id, @RequestBody Courier courier) {
-        Optional<Courier> courierData = courierRepository.findById(id);
-        if(courierData.isPresent()){
-            Courier selectedCourier = courierData.get();
-            selectedCourier.setName(courier.getName());
-            selectedCourier.setMaxDeliveryMiles(courier.getMaxDeliveryMiles());
-            selectedCourier.setStartHour(courier.getStartHour());
-            selectedCourier.setEndHour(courier.getEndHour());
-            selectedCourier.setHasRefrigeratedBox(courier.isHasRefrigeratedBox());
-            selectedCourier.setChargePerMile(courier.getChargePerMile());
-
-            return new ResponseEntity<>(courierRepository.save(selectedCourier), HttpStatus.OK);
-
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
 }
