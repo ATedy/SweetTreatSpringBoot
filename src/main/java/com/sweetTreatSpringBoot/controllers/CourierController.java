@@ -6,6 +6,8 @@ import com.sweetTreatSpringBoot.exceptionHandling.CourierErrorResponse;
 import com.sweetTreatSpringBoot.exceptionHandling.CourierNotFoundException;
 import com.sweetTreatSpringBoot.services.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,20 +46,23 @@ public class CourierController {
     //     single courier route
     @GetMapping("/couriers/{id}")
     public ResponseEntity<?> getOneCourier(@PathVariable("id") String id) {
-
         return courierService.getOneCourier(id);
 
     }
 
+    // Courier update Route
+    @PutMapping("/couriers/{id}")
+    public ResponseEntity<Courier> updateCourier(@PathVariable("id") String id, @RequestBody Courier courier) {
+        return courierService.updateCourier(id, courier);
+    }
+
+
     // deleting a courier route
     @DeleteMapping("/couriers/{id}")
-    public ResponseEntity<?> deleteCourier(@PathVariable("id") String id) {
-        try {
+    public String deleteCourier(@PathVariable("id") String id) {
+
             courierService.deleteCourier(id);
-            return new ResponseEntity<>("Courier deleted Successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("No Courier deleted", HttpStatus.BAD_REQUEST);
-        }
+            return "Courier deleted Successfully";
 
     }
 
