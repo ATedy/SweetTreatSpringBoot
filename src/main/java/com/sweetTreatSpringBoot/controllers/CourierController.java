@@ -50,7 +50,7 @@ public class CourierController {
 
     }
 
-    // Update Route
+    // Courier update Route
     @PutMapping("/couriers/{id}")
     public ResponseEntity<Courier> updateCourier(@PathVariable("id") String id, @RequestBody Courier courier) {
         return courierService.updateCourier(id, courier);
@@ -59,14 +59,10 @@ public class CourierController {
 
     // deleting a courier route
     @DeleteMapping("/couriers/{id}")
-    public ResponseEntity<?> deleteCourier(@PathVariable("id") String id) {
-        try {
-            System.out.println(id);
+    public String deleteCourier(@PathVariable("id") String id) {
+
             courierService.deleteCourier(id);
-            return new ResponseEntity<>("Courier deleted Successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("No Courier deleted", HttpStatus.BAD_REQUEST);
-        }
+            return "Courier deleted Successfully";
 
     }
 
