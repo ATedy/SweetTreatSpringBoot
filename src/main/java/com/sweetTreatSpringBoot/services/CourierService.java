@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +24,8 @@ public class CourierService {
         return courierRepository.findAll();
     }
 
-    public ResponseEntity<?> getOneCourier(@PathVariable("id") String id) {
+
+    public ResponseEntity<?> getOneCourier(String id) {
         Optional<Courier> courierData = courierRepository.findById(id);
         if (courierData.isPresent()) {
             return new ResponseEntity<>(courierData.get(), HttpStatus.OK);
@@ -64,4 +66,20 @@ public class CourierService {
     }
 
 
+    public ResponseEntity<Courier> updateCourier(@PathVariable("id") String id, @RequestBody Courier courier) {
+        Optional<Courier> courierData = courierRepository.findById(id);
+        if(courierData.isPresent()){
+            Courier selectedCourier = courierData.get();
+            selectedCourier.setName(courier.getName());
+            selectedCourier.setMaxDeliveryMiles(courier.getMaxDeliveryMiles());
+            selectedCourier.setStartHour(courier.getStartHour());
+            selectedCourier.setEndHour(courier.getEndHour());
+            selectedCourier.setHasRefrigeratedBox(courier.isHasRefrigeratedBox());
+            selectedCourier.setChargePerMile(courier.getChargePerMile());
+
+            return new ResponseEntity<>(courierRepository.save(selectedCourier), HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

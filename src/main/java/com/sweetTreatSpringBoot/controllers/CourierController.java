@@ -45,10 +45,19 @@ public class CourierController {
     //     single courier route
     @GetMapping("/couriers/{id}")
     public ResponseEntity<?> getOneCourier(@PathVariable("id") String id) {
-
         return courierService.getOneCourier(id);
 
     }
+
+    // Update Route
+    @PutMapping("/couriers/{id}")
+    public ResponseEntity<Courier> updateCourier(@PathVariable("id") String id, @RequestBody Courier courier){
+        return courierService.updateCourier(id, courier);
+    }
+
+
+
+
 
     // deleting a courier route
     @DeleteMapping("/couriers/{id}")
