@@ -40,6 +40,8 @@ public class CourierService {
 
     public void deleteCourier(String id) {
         courierRepository.deleteById(id);
+
+
     }
 
     public Courier cheapestCourierSelector(Order order) {

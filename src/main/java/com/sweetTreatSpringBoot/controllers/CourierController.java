@@ -6,10 +6,11 @@ import com.sweetTreatSpringBoot.exceptionHandling.CourierErrorResponse;
 import com.sweetTreatSpringBoot.exceptionHandling.CourierNotFoundException;
 import com.sweetTreatSpringBoot.services.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalTime;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class CourierController {
     @DeleteMapping("/couriers/{id}")
     public ResponseEntity<?> deleteCourier(@PathVariable("id") String id) {
         try {
+            System.out.println(id);
             courierService.deleteCourier(id);
             return new ResponseEntity<>("Courier deleted Successfully", HttpStatus.OK);
         } catch (Exception e) {
