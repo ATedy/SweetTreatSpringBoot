@@ -66,8 +66,9 @@ public class CourierController {
 
     }
 
+
     // cheapest courier route
-    @GetMapping("/couriers/cheapest")
+    @PostMapping("/couriers/cheapest")
     public ResponseEntity<?> cheapestCourier(@RequestBody Order order) {
         if (courierService.cheapestCourierSelector(order) != null) {
             return new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
