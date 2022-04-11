@@ -58,6 +58,7 @@ public class CourierController {
 
 
     // deleting a courier route
+    // add for id is not correct
     @DeleteMapping("/couriers/{id}")
     public String deleteCourier(@PathVariable("id") String id) {
 
@@ -66,8 +67,9 @@ public class CourierController {
 
     }
 
+
     // cheapest courier route
-    @GetMapping("/couriers/cheapest")
+    @PostMapping("/couriers/cheapest")
     public ResponseEntity<?> cheapestCourier(@RequestBody Order order) {
         if (courierService.cheapestCourierSelector(order) != null) {
             return new ResponseEntity<Courier>(courierService.cheapestCourierSelector(order), HttpStatus.OK);
@@ -76,16 +78,6 @@ public class CourierController {
     }
 
 
-    // exception handler method for courier
-    @ExceptionHandler
-    public ResponseEntity<CourierErrorResponse> handleException(CourierNotFoundException exc) {
-        CourierErrorResponse error = new CourierErrorResponse();
 
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(LocalTime.now());
-
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
 
 }
